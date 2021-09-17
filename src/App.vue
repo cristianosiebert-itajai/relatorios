@@ -48,6 +48,7 @@ export default {
 
   beforeMount() {
     this.getPermissao(sessionStorage.getItem('permissao'));
+    document.title = "LabReport";
   },
 
   methods: {
