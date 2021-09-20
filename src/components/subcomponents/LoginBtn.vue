@@ -43,13 +43,17 @@
                             this.$router.go();
                         }
                     } else {
-                        console.log("POST");
-                        let user = {google_id: profile.getId(), nome: profile.getName(), foto: profile.getImageUrl(), email: profile.getEmail(), permissao:result.data[0].permissao, createdBy:0, updatedBy:0, ativo:1};
-                        promise = this.$http.post('http://localhost:3000/usuarios',user);
-                        promise.then((user) => {
-                            sessionStorage.setItem('id',user.data[0].id);
-                            sessionStorage.setItem('permissao',user.data[0].permissao);
-                            this.$router.go();
+                        this.$http.get('http://localhost:3000/usuarios-permitidos/email/'+profile.getEmail())
+                        .then((result_permitido) => {
+                            if (result_permitido.data.length > 0) {
+                                let user = {google_id: profile.getId(), nome: profile.getName(), foto: profile.getImageUrl(), email: profile.getEmail(), permissao:result_permitido.data[0].permissao, createdBy:1, updatedBy:1, ativo:1};
+                                promise = this.$http.post('http://localhost:3000/usuarios',user);
+                                promise.then((user) => {
+                                    sessionStorage.setItem('id',user.data.id);
+                                    sessionStorage.setItem('permissao',user.data.permissao);
+                                    this.$router.go();
+                                });
+                            }
                         });
                     }
                 });

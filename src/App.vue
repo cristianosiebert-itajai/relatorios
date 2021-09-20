@@ -47,7 +47,9 @@ export default {
   }),
 
   beforeMount() {
-    this.getPermissao(sessionStorage.getItem('permissao'));
+    if (sessionStorage.getItem('permissao') != null && sessionStorage.getItem('permissao') != undefined) {
+      this.getPermissao(sessionStorage.getItem('permissao'));
+    }
     document.title = "LabReport";
   },
 
@@ -72,7 +74,7 @@ export default {
     },
     verificarPermissao: function verificarPermissao(nome) {
       if (nome != null && this.permissao != null) {
-          if (this.permissao.nome == nome) { return true; } else { return false; }
+        if (this.permissao.nome == nome) { return true; } else { return false; }
       } else { return false; }
     },
     verificarPermissaoInterna: function verificarPermissaoInterna(nome) {

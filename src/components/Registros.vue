@@ -105,10 +105,8 @@
         beforeMount() {
             this.$root.$refs.AppBar.showLoading();
             this.$root.$refs.App.title = 'Registros';
-            if (this.verificarPermissao('Escola') || this.verificarPermissao('SME')) {
-                this.getInstrutorSupervisor();
-                this.getInstrutores();
-            }
+            this.getInstrutorSupervisor();
+            this.getInstrutores();
             this.getRegistros();
             this.$root.$refs.AppBar.hideLoading();
         },
@@ -146,6 +144,7 @@
                 }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
             },
             getInstrutores: function getInstrutores() {
+                console.log('enter');
                 this.$http.get('http://localhost:3000/usuarios/permissao/4')
                 .then((result) => { 
                     this.instrutores = result.data;
@@ -153,7 +152,12 @@
                     .then((result) => { 
                         this.instrutores.push(result.data[0]);
                     }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
-                }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
+                }, () => {
+                    this.$http.get('http://localhost:3000/usuarios/email/cristiano.siebert@edu.itajai.sc.gov.br')
+                    .then((result) => { 
+                        this.instrutores.push(result.data[0]);
+                    }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
+                });
             },
             getInstrutorSupervisor: function getInstrutorSupervisor() {
                 this.$http.get('http://localhost:3000/supervisora-usuarios/email/'+sessionStorage.getItem('email'))
