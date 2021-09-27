@@ -52,7 +52,7 @@
 <script>
     import ComentarioDialog from './ComentarioDialog';
     import DeleteComentarioDialog from './DeleteComentarioDialog';
-    import moment from 'moment';
+    import moment from 'moment/src/moment';
     export default {
         name: 'Comentario',
         components: {
