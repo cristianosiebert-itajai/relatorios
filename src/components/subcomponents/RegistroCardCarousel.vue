@@ -1,7 +1,7 @@
 <template>
     <v-carousel class="card-media-height" :show-arrows="verifyArrows(registro.fotos.length)" hide-delimiters v-if="registro.fotos.length > 0">
         <v-carousel-item @click="openBigCarousel(registro.fotos)" v-for="(item,i) in registro.fotos" :key="i"
-        :src="'http://localhost:3000/registros-fotos/foto/'+fixFilepath(item.filepath)"
+        :src="'http://localhost:1337/registros-fotos/foto/'+fixFilepath(item.filepath)"
         ></v-carousel-item>
     </v-carousel>
 </template>

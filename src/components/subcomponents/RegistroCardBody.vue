@@ -40,7 +40,7 @@
 
         methods: {
             getDisciplinas: function getDisciplinas() {
-                this.$http.get('http://localhost:3000/disciplinas/')
+                this.$http.get('http://localhost:1337/disciplinas/')
                 .then((result) => { 
                     this.disciplinas = result.data;
                 }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });

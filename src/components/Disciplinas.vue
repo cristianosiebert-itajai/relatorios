@@ -70,7 +70,7 @@
         methods: {
             getDisciplinas: function getDisciplinas(){
                 this.loading = true;
-                this.$http.get('http://localhost:3000/disciplinas/')
+                this.$http.get('http://localhost:1337/disciplinas/')
                 .then((result) => { 
                     this.disciplinas = result.data;
                     this.loading = false;
@@ -78,7 +78,7 @@
             },
             editarDisciplina: function editarDisciplina(disc) {
                 this.loading = true;
-                this.$http.put('http://localhost:3000/disciplinas/'+disc.id,disc)
+                this.$http.put('http://localhost:1337/disciplinas/'+disc.id,disc)
                 .then(() => {
                     this.$root.$refs.App.openSnackbar("Disciplina alterada com sucesso.");
                     this.loading = false;

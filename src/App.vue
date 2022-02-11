@@ -67,7 +67,7 @@ export default {
       this.message = message;
     },
     getPermissao: function getPermissao(id) {
-      this.$http.get('http://localhost:3000/permissoes/'+id)
+      this.$http.get('http://localhost:1337/permissoes/'+id)
       .then((result) => { 
           this.permissao = result.data;
       }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });

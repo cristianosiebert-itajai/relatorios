@@ -31,7 +31,7 @@
     methods: {
         criarTipo: function criarTipo() {
             this.loading = true;
-            this.$http.post('http://localhost:3000/tipos-registros/',this.tipo_registro)
+            this.$http.post('http://localhost:1337/tipos-registros/',this.tipo_registro)
             .then((result) => {
                 var novoObj = result.data;
                 novoObj['index'] = this.$root.$refs.TiposRegistro.tipos_registros.length;

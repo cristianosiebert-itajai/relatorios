@@ -53,7 +53,7 @@
         mudarVisibilidade: function mudarVisibilidade(registro) {
             if (registro.visibilidade) { registro.visibilidade = false; }
             else { registro.visibilidade = true; }
-            this.$http.put('http://localhost:3000/registros/'+registro.id,registro)
+            this.$http.put('http://localhost:1337/registros/'+registro.id,registro)
             .then(() => { 
                 if (registro.visibilidade) { this.$root.$refs.App.openSnackbar("O registro se tornou público."); }
                 else { this.$root.$refs.App.openSnackbar("O registro está privado."); }
@@ -66,29 +66,29 @@
         },
         duplicarRegistro: function duplicarRegistro(id) {
             this.$root.$refs.AppBar.showLoading();
-            this.$http.get('http://localhost:3000/registros/id/'+id)
+            this.$http.get('http://localhost:1337/registros/id/'+id)
             .then((result) => { 
                 this.registro = result.data;
                 delete this.registro['id'];
                 delete this.registro['createdAt'];
                 delete this.registro['updatedAt'];
                 var tipo = this.registro.tipo_registro;
-                this.$http.post('http://localhost:3000/registros/',this.registro)
+                this.$http.post('http://localhost:1337/registros/',this.registro)
                 .then((result_obj) => {
                     let novo_registro = result_obj.data;
                     if (parseInt(tipo) == 1) {
-                        this.$http.get('http://localhost:3000/aulas-registros/'+id)
+                        this.$http.get('http://localhost:1337/aulas-registros/'+id)
                         .then((res_aulas) => {
                             var aulas = res_aulas.data;
                             for (let i=0; i<aulas.length; i++) { 
                                 aulas[i].registro_id = novo_registro.id
                                 delete aulas[i]['id'];
-                                this.$http.post('http://localhost:3000/aulas-registros/',aulas[i])
+                                this.$http.post('http://localhost:1337/aulas-registros/',aulas[i])
                             }
                         });
                     }
                     
-                    this.$http.get('http://localhost:3000/registros-fotos/'+id)
+                    this.$http.get('http://localhost:1337/registros-fotos/'+id)
                     .then((res_fotos) => {
                         var fotos = res_fotos.data;
                         this.fotos_registro = fotos;

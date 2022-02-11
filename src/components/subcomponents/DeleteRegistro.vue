@@ -36,7 +36,7 @@
         deleteRegistro: function deleteRegistro() {
             this.loading = true;
             var user_id = sessionStorage.getItem('id');
-            this.$http.delete('http://localhost:3000/registros/'+this.preDeleteId+'/'+user_id)
+            this.$http.delete('http://localhost:1337/registros/'+this.preDeleteId+'/'+user_id)
             .then(() => {
                 this.$root.$refs.App.openSnackbar("Registro removido com sucesso.");
                 this.dialogDelete = false;

@@ -26,12 +26,12 @@
                 sessionStorage.setItem('avatar',profile.getImageUrl());
                 sessionStorage.setItem('current_month',new Date().toISOString().substr(0, 7));
                 sessionStorage.setItem('num_columns',3);
-                this.$http.get('http://localhost:3000/usuarios/email/'+profile.getEmail())
+                this.$http.get('http://localhost:1337/usuarios/email/'+profile.getEmail())
                 .then((result) => { 
                     if (result.data.length > 0) {
                         console.log("PUT");
                         if (result.data[0].foto != profile.getImageUrl()) {
-                            promise = this.$http.put('http://localhost:3000/usuarios/'+result.data[0].id,{foto: profile.getImageUrl()});
+                            promise = this.$http.put('http://localhost:1337/usuarios/'+result.data[0].id,{foto: profile.getImageUrl()});
                             promise.then(() => {
                                 sessionStorage.setItem('id',result.data[0].id);
                                 sessionStorage.setItem('permissao',result.data[0].permissao);
@@ -43,11 +43,11 @@
                             this.$router.go();
                         }
                     } else {
-                        this.$http.get('http://localhost:3000/usuarios-permitidos/email/'+profile.getEmail())
+                        this.$http.get('http://localhost:1337/usuarios-permitidos/email/'+profile.getEmail())
                         .then((result_permitido) => {
                             if (result_permitido.data.length > 0) {
                                 let user = {google_id: profile.getId(), nome: profile.getName(), foto: profile.getImageUrl(), email: profile.getEmail(), permissao:result_permitido.data[0].permissao, createdBy:1, updatedBy:1, ativo:1};
-                                promise = this.$http.post('http://localhost:3000/usuarios',user);
+                                promise = this.$http.post('http://localhost:1337/usuarios',user);
                                 promise.then((user) => {
                                     sessionStorage.setItem('id',user.data.id);
                                     sessionStorage.setItem('permissao',user.data.permissao);

@@ -91,7 +91,7 @@
             var pai_id = this.main_comment.comentario_pai_id;
             this.loading = true;
             if (tipo == 'resposta') {
-                this.$http.post('http://localhost:3000/registros-comentarios/',this.main_comment)
+                this.$http.post('http://localhost:1337/registros-comentarios/',this.main_comment)
                 .then(() => {
                     this.$root.$refs.AppBar.hideLoading();
                     /*
@@ -104,7 +104,7 @@
                 });
             } else {
                 if (pai_id == null) { pai_id = this.main_comment.registro_id; }
-                this.$http.put('http://localhost:3000/registros-comentarios/'+this.main_comment.id,this.main_comment)
+                this.$http.put('http://localhost:1337/registros-comentarios/'+this.main_comment.id,this.main_comment)
                 .then(() => {
                     this.$root.$refs.AppBar.hideLoading();                        
                     var index = this.$root.$refs.Comentario.findIndex(this.main_comment, true);

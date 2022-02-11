@@ -31,7 +31,7 @@
     methods: {
         criarDisciplina: function criarDisciplina() {
             this.loading = true;
-            this.$http.post('http://localhost:3000/disciplinas/',this.disciplina)
+            this.$http.post('http://localhost:1337/disciplinas/',this.disciplina)
             .then((result) => {
                 var novoObj = result.data;
                 novoObj['index'] = this.$root.$refs.Disciplinas.disciplinas.length;

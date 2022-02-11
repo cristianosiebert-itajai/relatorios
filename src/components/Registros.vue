@@ -118,7 +118,7 @@
                 if (this.instrutor.nome != '') { 
                     id = this.instrutor.google_id;
                 }
-                this.$http.get('http://localhost:3000/registros/'+month[1]+'/'+id+'/'+this.card_por_linha.length+'/privado')
+                this.$http.get('http://localhost:1337/registros/'+month[1]+'/'+id+'/'+this.card_por_linha.length+'/privado')
                 .then((result) => {
                     this.registros = result.data;
                     var size = this.registros.pop();
@@ -138,33 +138,33 @@
                 }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
             },
             getComentarios: function getComentarios(registro) {
-                this.$http.get('http://localhost:3000/registros-comentarios/'+registro.id)
+                this.$http.get('http://localhost:1337/registros-comentarios/'+registro.id)
                 .then((result) => { 
                     this.comentarios.push({'registro_id': registro.id, 'comentarios': result.data});
                 }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
             },
             getInstrutores: function getInstrutores() {
                 console.log('enter');
-                this.$http.get('http://localhost:3000/usuarios/permissao/4')
+                this.$http.get('http://localhost:1337/usuarios/permissao/4')
                 .then((result) => { 
                     this.instrutores = result.data;
-                    this.$http.get('http://localhost:3000/usuarios/email/cristiano.siebert@edu.itajai.sc.gov.br')
+                    this.$http.get('http://localhost:1337/usuarios/email/cristiano.siebert@edu.itajai.sc.gov.br')
                     .then((result) => { 
                         this.instrutores.push(result.data[0]);
                     }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
                 }, () => {
-                    this.$http.get('http://localhost:3000/usuarios/email/cristiano.siebert@edu.itajai.sc.gov.br')
+                    this.$http.get('http://localhost:1337/usuarios/email/cristiano.siebert@edu.itajai.sc.gov.br')
                     .then((result) => { 
                         this.instrutores.push(result.data[0]);
                     }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
                 });
             },
             getInstrutorSupervisor: function getInstrutorSupervisor() {
-                this.$http.get('http://localhost:3000/supervisora-usuarios/email/'+sessionStorage.getItem('email'))
+                this.$http.get('http://localhost:1337/supervisora-usuarios/email/'+sessionStorage.getItem('email'))
                 .then((result) => { 
                     if (result.data.length > 0) {
                         var supervisionado = result.data[0];
-                        this.$http.get('http://localhost:3000/usuarios/email/'+supervisionado.usuario_email)
+                        this.$http.get('http://localhost:1337/usuarios/email/'+supervisionado.usuario_email)
                         .then((resultInstrutor) => { 
                             this.instrutor = resultInstrutor.data[0];
                             this.getRegistros();
@@ -178,7 +178,7 @@
                 this.main_comment.registro_id = registro.id;
                 this.main_comment.usuario_comentario_id = sessionStorage.getItem('id');
                 this.main_comment.data_comentario = new Date();
-                this.$http.post('http://localhost:3000/registros-comentarios/',this.main_comment)
+                this.$http.post('http://localhost:1337/registros-comentarios/',this.main_comment)
                 .then(() => {
                     this.$root.$refs.AppBar.hideLoading();
                     this.getRegistros();
@@ -188,14 +188,14 @@
                 this.$root.$refs.AppBar.showLoading();
                 var obj = {'usuario_superior_email': sessionStorage.getItem('email'), 'usuario_email': this.instrutor_form.email};
                 if (this.instrutor.nome == "") {
-                    this.$http.post('http://localhost:3000/supervisora-usuarios/',obj)
+                    this.$http.post('http://localhost:1337/supervisora-usuarios/',obj)
                     .then(() => {
                         this.$root.$refs.AppBar.hideLoading();
                         this.dialogInstrutor = false;
                         this.$router.go();
                     });
                 } else {
-                    this.$http.put('http://localhost:3000/supervisora-usuarios/email/'+sessionStorage.getItem('email'),obj)
+                    this.$http.put('http://localhost:1337/supervisora-usuarios/email/'+sessionStorage.getItem('email'),obj)
                     .then(() => {
                         this.$root.$refs.AppBar.hideLoading();
                         this.dialogInstrutor = false;

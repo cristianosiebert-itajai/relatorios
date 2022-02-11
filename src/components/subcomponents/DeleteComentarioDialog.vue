@@ -39,7 +39,7 @@
         deleteComentario: function deleteComentario() {
             this.$root.$refs.AppBar.showLoading();
 
-            this.$http.delete('http://localhost:3000/registros-comentarios/'+this.preDeleteComment.id)
+            this.$http.delete('http://localhost:1337/registros-comentarios/'+this.preDeleteComment.id)
             .then(() => {
                 this.$root.$refs.AppBar.hideLoading();
                 /*

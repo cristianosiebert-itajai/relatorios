@@ -30,7 +30,7 @@
         deletarUsuarioPermitido: function deletarUsuarioPermitido() {
             this.loading = true;
             var objToRemove = this.$root.$refs.UsuariosPermitidos.usuariosPermitidos[this.preDelete];
-            this.$http.delete('http://localhost:3000/usuarios-permitidos/'+objToRemove.id,objToRemove)
+            this.$http.delete('http://localhost:1337/usuarios-permitidos/'+objToRemove.id,objToRemove)
             .then(() => { 
                 this.$root.$refs.UsuariosPermitidos.getUsuariosPermitidos();
                 this.$root.$refs.App.openSnackbar("Usuário removido com sucesso.");

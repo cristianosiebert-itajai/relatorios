@@ -66,7 +66,7 @@
     methods: {
         getPerifericos: function getPerifericos(){
             this.loading = true;
-            this.$http.get('http://localhost:3000/tipos-perifericos/')
+            this.$http.get('http://localhost:1337/tipos-perifericos/')
             .then((result) => { 
                 this.perifericos = result.data;
                 this.loading = false;
@@ -74,7 +74,7 @@
         },
         getStatus: function getStatus(){
             this.loading = true;
-            this.$http.get('http://localhost:3000/inventarios-status/')
+            this.$http.get('http://localhost:1337/inventarios-status/')
             .then((result) => { 
                 this.statuses = result.data;
                 this.loading = false;
@@ -82,14 +82,14 @@
         },
         criarItem: function criarItem() {
             this.loading = true;
-            this.$http.post('http://localhost:3000/inventarios/',this.inventario)
+            this.$http.post('http://localhost:1337/inventarios/',this.inventario)
             .then((result) => {
                 var novoObj = result.data;
                 novoObj['index'] = this.$root.$refs.Inventario.itens.length;
                 if (this.arquivos != null) {
                     let formData = new FormData();
                     formData.append('files[' + 0 + ']', this.arquivos);
-                    this.$http.put('http://localhost:3000/inventarios/foto/'+novoObj.id,formData,{
+                    this.$http.put('http://localhost:1337/inventarios/foto/'+novoObj.id,formData,{
                         "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
                     });
                 }

@@ -69,14 +69,14 @@
         }),
         methods: {
             getTipoRegistros: function getTipoRegistros(){
-                this.$http.get('http://localhost:3000/tipos-registros/')
+                this.$http.get('http://localhost:1337/tipos-registros/')
                 .then((result) => { 
                     this.tipos_registros = result.data;
                 }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
             },
             editarTipo: function editarTipo(tipo) {
                 this.loading = true;
-                this.$http.put('http://localhost:3000/tipos-registros/'+tipo.id,tipo)
+                this.$http.put('http://localhost:1337/tipos-registros/'+tipo.id,tipo)
                 .then(() => {
                     this.$root.$refs.App.openSnackbar("Tipo de Registro alterada com sucesso.");
                     this.loading = false;

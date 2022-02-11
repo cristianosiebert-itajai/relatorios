@@ -3,7 +3,7 @@
         <v-card>
             <v-carousel :show-arrows="verifyArrows(fotosDialog.length)" class="card-media-dialog" hide-delimiters v-if="fotosDialog.length > 0">
                 <v-carousel-item v-for="(item,i) in fotosDialog" :key="i"
-                :src="'http://localhost:3000/registros-fotos/foto/'+fixFilepath(item.filepath)"
+                :src="'http://localhost:1337/registros-fotos/foto/'+fixFilepath(item.filepath)"
                 ></v-carousel-item>
             </v-carousel>
         </v-card>

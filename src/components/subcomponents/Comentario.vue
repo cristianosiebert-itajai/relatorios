@@ -82,7 +82,7 @@
                     this.respostas.splice(index,1);
                     this.$root.$refs.AppBar.hideLoading();
                 } else {
-                    this.$http.get('http://localhost:3000/registros-comentarios/respostas/'+comentario.id)
+                    this.$http.get('http://localhost:1337/registros-comentarios/respostas/'+comentario.id)
                     .then((result) => { 
                         this.$root.$refs.AppBar.hideLoading();
                         if (result.data.length > 0) {

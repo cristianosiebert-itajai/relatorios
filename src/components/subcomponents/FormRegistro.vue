@@ -128,7 +128,7 @@
                     <v-row v-if="registro.tipo_registro != null">
                         <v-col v-for="(foto,index) in fotos_registro.fotos" :key="foto.id" cols="12" sm="12" md="2">
                             <v-btn @click="preDeleteFoto(index)" icon><v-icon color="red lighten-2">delete</v-icon></v-btn>
-                            <v-img class="image-form" :src="'http://localhost:3000/registros-fotos/foto/'+fixFilepath(foto.filepath)"></v-img>
+                            <v-img class="image-form" :src="'http://localhost:1337/registros-fotos/foto/'+fixFilepath(foto.filepath)"></v-img>
                         </v-col>
                     </v-row>
                 </v-card-text>
@@ -272,7 +272,7 @@
             getRegistro: function getRegistro(id){
                 this.dialog = true;
                 this.loading = true;
-                this.$http.get('http://localhost:3000/registros/id/'+id)
+                this.$http.get('http://localhost:1337/registros/id/'+id)
                 .then((result) => { 
                     this.registro = result.data;                    
                     var init = this.registro.data_inicio.split('T')[0];
@@ -281,11 +281,11 @@
                     this.registro.data_fim = end;
                     this.formatDate(this.registro.data_inicio,'inicio');
                     this.formatDate(this.registro.data_fim,'fim');
-                    this.$http.get('http://localhost:3000/aulas-registros/'+id)
+                    this.$http.get('http://localhost:1337/aulas-registros/'+id)
                     .then((res_aulas) => {
                         var aulas = res_aulas.data;
                         for (let i=0; i<aulas.length; i++) { this.qtdes_aulas.push(aulas[i].aula.toString()); }
-                        this.$http.get('http://localhost:3000/registros-fotos/'+id)
+                        this.$http.get('http://localhost:1337/registros-fotos/'+id)
                         .then((res_fotos) => {
                             var fotos = res_fotos.data;
                             this.fotos_registro = fotos;
@@ -295,7 +295,7 @@
                 }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
             },
             getTipoRegistros: function getTipoRegistros(){
-                this.$http.get('http://localhost:3000/tipos-registros/')
+                this.$http.get('http://localhost:1337/tipos-registros/')
                 .then((result) => { 
                     this.tipos_registros = result.data;
                     for (let i=0; i<this.tipos_registros.length;i++) {
@@ -308,7 +308,7 @@
                 }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
             },
             getDisciplinas: function getDisciplinas(){
-                this.$http.get('http://localhost:3000/disciplinas/')
+                this.$http.get('http://localhost:1337/disciplinas/')
                 .then((result) => { 
                     this.disciplinas = result.data;
                     for (let i=0; i<this.disciplinas.length;i++) {
@@ -363,11 +363,11 @@
             },
             salvarRegistro: function salvarRegistro() {
                 this.loading = true;
-                this.$http.post('http://localhost:3000/registros/',this.registro)
+                this.$http.post('http://localhost:1337/registros/',this.registro)
                 .then((result) => {
                     var novoObj = result.data;
                     for (let i=0; i<this.qtdes_aulas.length; i++) {
-                        this.$http.post('http://localhost:3000/aulas-registros/',{'registro_id':novoObj.id, 'aula':this.qtdes_aulas[i]})
+                        this.$http.post('http://localhost:1337/aulas-registros/',{'registro_id':novoObj.id, 'aula':this.qtdes_aulas[i]})
                     }
                     if (this.arquivos.length > 0) {
                         let formData = new FormData();
@@ -376,7 +376,7 @@
                             let file = this.arquivos[i];
                             formData.append('files[' + i + ']', file);
                         }
-                        this.$http.post('http://localhost:3000/registros-fotos/',formData,{
+                        this.$http.post('http://localhost:1337/registros-fotos/',formData,{
                             "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
                         });
                     }
@@ -396,7 +396,7 @@
                 var id = this.fotos_registro.fotos[this.pre_delete_index].id;
                 var path = this.fotos_registro.fotos[this.pre_delete_index].filepath;
                 this.fotos_registro.fotos.splice(this.pre_delete_index);
-                this.$http.delete('http://localhost:3000/registros-fotos/'+id+'/'+this.fixFilepath(path))
+                this.$http.delete('http://localhost:1337/registros-fotos/'+id+'/'+this.fixFilepath(path))
                 .then(() => {
                     this.$root.$refs.App.openSnackbar('Foto removida com sucesso.');
                     this.loading = false;
@@ -405,15 +405,15 @@
             },
             editarRegistro: function editarRegistro() {
                 this.loading = true;
-                this.$http.put('http://localhost:3000/registros/'+this.registro.id,this.registro)
+                this.$http.put('http://localhost:1337/registros/'+this.registro.id,this.registro)
                 .then(() => {
                     console.log(this.qtdes_aulas);
                     var qtde_aulas = this.qtdes_aulas
-                    this.$http.put('http://localhost:3000/aulas-registros/'+this.registro.id)
+                    this.$http.put('http://localhost:1337/aulas-registros/'+this.registro.id)
                     .then(() => {
                         console.log(qtde_aulas);
                         for (let i=0; i<qtde_aulas.length; i++) {
-                            this.$http.post('http://localhost:3000/aulas-registros/',{'registro_id':this.registro.id, 'aula':qtde_aulas[i]})
+                            this.$http.post('http://localhost:1337/aulas-registros/',{'registro_id':this.registro.id, 'aula':qtde_aulas[i]})
                         }
                     });
                     if (this.arquivos.length > 0) {
@@ -423,7 +423,7 @@
                             let file = this.arquivos[i];
                             formData.append('files[' + i + ']', file);
                         }
-                        this.$http.post('http://localhost:3000/registros-fotos/',formData,{
+                        this.$http.post('http://localhost:1337/registros-fotos/',formData,{
                             "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
                         });
                     }

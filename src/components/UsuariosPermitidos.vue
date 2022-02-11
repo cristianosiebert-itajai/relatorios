@@ -91,12 +91,12 @@
     }),
     methods: {
       getPermissoes: function getPermissoes(){
-        this.$http.get('http://localhost:3000/permissoes/')
+        this.$http.get('http://localhost:1337/permissoes/')
           .then((result) => { this.permissoes = result.data;
           }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
       },
       getUsuariosPermitidos: function getUsuariosPermitidos(){
-        this.$http.get('http://localhost:3000/usuarios-permitidos/')
+        this.$http.get('http://localhost:1337/usuarios-permitidos/')
           .then((result) => { 
             this.usuariosPermitidos = result.data;
             for (let i=0; i<this.usuariosPermitidos.length; i++) {
@@ -114,7 +114,7 @@
       editarUsuarioPermitido: function editarUsuarioPermitido(index) {
         this.loading = true;
         var objToEdit = this.usuariosPermitidos[index];
-        this.$http.put('http://localhost:3000/usuarios-permitidos/'+objToEdit.id,objToEdit)
+        this.$http.put('http://localhost:1337/usuarios-permitidos/'+objToEdit.id,objToEdit)
         .then(() => {
           this.$root.$refs.App.openSnackbar("Usuário alterado com sucesso.");
           this.loading = false;

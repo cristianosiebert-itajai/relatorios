@@ -9,7 +9,7 @@
         <v-card>
             <v-carousel :show-arrows="verifyArrows(fotosDialog.length)" class="card-media-dialog" hide-delimiters v-if="fotosDialog.length > 0">
               <v-carousel-item v-for="(item,i) in fotosDialog" :key="i"
-              :src="'http://localhost:3000/inventarios/get-foto/'+fixFilepath(item)"
+              :src="'http://localhost:1337/inventarios/get-foto/'+fixFilepath(item)"
               ></v-carousel-item>
             </v-carousel>
         </v-card>
@@ -29,7 +29,7 @@
                   <tr>
                       <td>
                         <v-avatar @click="openFotoDialog([item.foto])" size="32">
-                          <img :src="'http://localhost:3000/inventarios/get-foto/'+fixFilepath(item.foto)" :alt="item.nome">
+                          <img :src="'http://localhost:1337/inventarios/get-foto/'+fixFilepath(item.foto)" :alt="item.nome">
                         </v-avatar>
                       </td>
                       <td>
@@ -95,7 +95,7 @@
         <v-card>
             <v-carousel :show-arrows="verifyArrows(fotosDialog.length)" class="card-media-dialog" hide-delimiters v-if="fotosDialog.length > 0">
               <v-carousel-item v-for="(item,i) in fotosDialog" :key="i"
-              :src="'http://localhost:3000/inventarios/get-foto/'+fixFilepath(item)"
+              :src="'http://localhost:1337/inventarios/get-foto/'+fixFilepath(item)"
               ></v-carousel-item>
             </v-carousel>
         </v-card>
@@ -143,7 +143,7 @@ import InventarioDeleteDialog from './subcomponents/InventarioDeleteDialog';
     methods: {
       getItems: function getItems(){
           this.loading = true;
-          this.$http.get('http://localhost:3000/inventarios/user_id/'+sessionStorage.getItem('id'))
+          this.$http.get('http://localhost:1337/inventarios/user_id/'+sessionStorage.getItem('id'))
           .then((result) => { 
               this.itens = result.data;
               this.loading = false;
@@ -181,7 +181,7 @@ import InventarioDeleteDialog from './subcomponents/InventarioDeleteDialog';
       },
       editarItem: function editarItem(obj) {
         this.loading = true;
-        this.$http.put('http://localhost:3000/inventarios/'+obj.id,obj)
+        this.$http.put('http://localhost:1337/inventarios/'+obj.id,obj)
         .then(() => {
           this.$root.$refs.App.openSnackbar("Periférico alterado com sucesso.");
           this.loading = false;
@@ -192,7 +192,7 @@ import InventarioDeleteDialog from './subcomponents/InventarioDeleteDialog';
         if (this.arquivos != null) {
             let formData = new FormData();
             formData.append('files[' + 0 + ']', this.arquivos);
-            this.$http.put('http://localhost:3000/inventarios/foto/'+obj.id,formData,{
+            this.$http.put('http://localhost:1337/inventarios/foto/'+obj.id,formData,{
                 "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
             }).then(() => {
               this.arquivos = null;

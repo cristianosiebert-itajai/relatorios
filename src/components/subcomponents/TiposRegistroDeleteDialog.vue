@@ -29,7 +29,7 @@
     methods: {
         deletarTipo: function deletarTipo() {
             this.loading = true;
-            this.$http.delete('http://localhost:3000/tipos-registros/'+this.tipo.id)
+            this.$http.delete('http://localhost:1337/tipos-registros/'+this.tipo.id)
             .then(() => { 
                 this.$root.$refs.TiposRegistro.getTipoRegistros();
                 this.$root.$refs.App.openSnackbar("Tipo de registro removido com sucesso.");

@@ -37,13 +37,13 @@
     }),
     methods: {
         getPermissoes: function getPermissoes(){
-            this.$http.get('http://localhost:3000/permissoes/')
+            this.$http.get('http://localhost:1337/permissoes/')
             .then((result) => { this.permissoes = result.data;
             }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
         },
         criarUsuarioPermitido: function criarUsuarioPermitido() {
             this.loading = true;
-            this.$http.post('http://localhost:3000/usuarios-permitidos/',this.usuarioPermitido)
+            this.$http.post('http://localhost:1337/usuarios-permitidos/',this.usuarioPermitido)
             .then((result) => {
                 var novoObj = result.data;
                 novoObj['index'] = this.$root.$refs.UsuariosPermitidos.usuariosPermitidos.length;

@@ -85,7 +85,7 @@
       getRegistros: function getRegistros() {
         var month = sessionStorage.getItem('current_month').split('-');
         this.comentarios = [];
-        this.$http.get('http://localhost:3000/registros/'+month[1]+'/'+sessionStorage.getItem('google_id')+'/'+this.card_por_linha.length+'/publico')
+        this.$http.get('http://localhost:1337/registros/'+month[1]+'/'+sessionStorage.getItem('google_id')+'/'+this.card_por_linha.length+'/publico')
         .then((result) => {
           this.registros = result.data;
           var size = this.registros.pop();
@@ -101,7 +101,7 @@
         }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
       },
       getComentarios: function getComentarios(registro) {
-        this.$http.get('http://localhost:3000/registros-comentarios/'+registro.id)
+        this.$http.get('http://localhost:1337/registros-comentarios/'+registro.id)
         .then((result) => { 
           this.comentarios.push({'registro_id': registro.id, 'comentarios': result.data});
         }, () => { this.$root.$refs.App.openSnackbar("Houve um erro, favor tentar novamente mais tarde."); });
@@ -112,7 +112,7 @@
         this.main_comment.registro_id = registro.id;
         this.main_comment.usuario_comentario_id = sessionStorage.getItem('id');
         this.main_comment.data_comentario = new Date();
-        this.$http.post('http://localhost:3000/registros-comentarios/',this.main_comment)
+        this.$http.post('http://localhost:1337/registros-comentarios/',this.main_comment)
         .then(() => {
           this.$root.$refs.AppBar.hideLoading();
           this.getRegistros();

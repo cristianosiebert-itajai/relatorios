@@ -29,7 +29,7 @@
     methods: {
         deletarPeriferico: function deletarPeriferico() {
             this.loading = true;
-            this.$http.delete('http://localhost:3000/inventarios/'+this.periferico.id+'/'+sessionStorage.getItem('id'))
+            this.$http.delete('http://localhost:1337/inventarios/'+this.periferico.id+'/'+sessionStorage.getItem('id'))
             .then(() => { 
                 this.$root.$refs.Inventario.getItems();
                 this.$root.$refs.App.openSnackbar("Periférico removido com sucesso.");

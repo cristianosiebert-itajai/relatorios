@@ -29,7 +29,7 @@
     methods: {
         deletarDisciplina: function deletarDisciplina() {
             this.loading = true;
-            this.$http.delete('http://localhost:3000/disciplinas/'+this.disciplina.id)
+            this.$http.delete('http://localhost:1337/disciplinas/'+this.disciplina.id)
             .then(() => { 
                 this.$root.$refs.Disciplinas.getDisciplinas();
                 this.$root.$refs.App.openSnackbar("Disciplina removida com sucesso.");
