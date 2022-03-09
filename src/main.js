@@ -13,7 +13,7 @@ import Disciplinas from './components/Disciplinas'
 import TiposRegistro from './components/TiposRegistro'
 
 const gauthOption = {
-  clientId: '48057573755-j3nu5nuntjmn9meatu4hm6it0gj0s473.apps.googleusercontent.com',
+  clientId: '948828573511-es4juboke9kcrl19e67pfsg5dtorohd2.apps.googleusercontent.com',
   scope: 'profile email',
   prompt: 'select_account'
 }
