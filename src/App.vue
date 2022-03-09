@@ -50,7 +50,7 @@ export default {
     if (sessionStorage.getItem('permissao') != null && sessionStorage.getItem('permissao') != undefined) {
       this.getPermissao(sessionStorage.getItem('permissao'));
     }
-    document.title = "LabReport";
+    document.title = "ReportLab";
   },
 
   methods: {
